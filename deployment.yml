@@ -11,7 +11,7 @@ spec:
       maxUnavailable: 2    
       maxSurge: 2
   minReadySeconds: 20      
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: mynapp-deploy
