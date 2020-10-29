@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: mynapp-ing
+spec:
+  rules:
+  - host: mynapp.example.com          #외부에서 접속하는 FQDN 주소
+    http:
+      paths:
+      - path: /                       #해당 path로 들어오면
+        backend:
+          serviceName: test-nodeport  #'test-nodeport'서비스로 연결시킨다.
+          servicePort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-nodeport
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 31111
+  selector:
+    app: mynapp-deploy
